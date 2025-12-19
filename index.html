@@ -9,7 +9,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, setDoc, increment, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // 使用您之前的 Firebase 配置
         const firebaseConfig = {
             apiKey: "AIzaSyA-Rs2yEGVuffeIhJr-DNZwyFICF4NE_Rc",
             authDomain: "brush-your-teeth-44f87.firebaseapp.com",
@@ -23,85 +22,85 @@
         const db = getFirestore(app);
 
         const ALL_QUESTIONS = [
-  {q:"乳齒齒列共有 20 顆，在出生後 6 個月時乳牙開始發育。",options:["對","錯"],a:"對"},
-  {q:"乳齒到兩歲半左右 20 顆乳牙萌發完畢。",options:["對","錯"],a:"對"},
-  {q:"恆牙第一大臼齒在 6 歲左右萌出。",options:["對","錯"],a:"對"},
-  {q:"恆牙共有 28 顆，不包括智齒。",options:["對","錯"],a:"對"},
-  {q:"口腔內第一顆長出的恆牙通常為中門牙。",options:["對","錯"],a:"錯"},
-  {q:"人類乳牙期為 0～6 歲，混合牙期為 6～12 歲。",options:["對","錯"],a:"對"},
-  {q:"恆牙共有 32 顆（含智齒 4 顆）。",options:["對","錯"],a:"對"},
-  {q:"乳牙與恆牙的構造大同小異，由外而內分別為牙釉質、牙本質、牙髓。",options:["對","錯"],a:"對"},
-  {q:"牙釉質（琺瑯質）是人體內最堅硬的組織。",options:["對","錯"],a:"對"},
-  {q:"牙髓組織內含神經、血管及淋巴管，負責牙齒的營養與感覺。",options:["對","錯"],a:"對"},
-  {q:"口腔癌只發生在老年人。",options:["對","錯"],a:"錯"},
-  {q:"嚼食檳榔是引起口腔癌的主因之一。",options:["對","錯"],a:"對"},
-  {q:"牙齒最重要的功能是咀嚼食物及幫助發音。",options:["對","錯"],a:"對"},
-  {q:"正確刷牙後可以完全預防蛀牙，不需要定期檢查。",options:["對","錯"],a:"錯"},
-  {q:"牙周病會導致牙齒鬆動甚至脫落。",options:["對","錯"],a:"對"},
-  {q:"抽菸會加重牙周病的病情。",options:["對","錯"],a:"對"},
-  {q:"含氟牙膏建議含氟濃度應大於 1000ppm。",options:["對","錯"],a:"對"},
-  {q:"牙刷刷頭應選擇較大者，才能刷得乾淨。",options:["對","錯"],a:"錯"},
-  {q:"貝氏刷牙法要求刷毛與牙齒長軸呈 45 度角。",options:["對","錯"],a:"對"},
-  {q:"使用牙線可以清潔牙刷刷不到的牙縫。",options:["對","錯"],a:"對"},
-  {q:"漱口水可以完全取代刷牙。",options:["對","錯"],a:"錯"},
-  {q:"全口塗氟建議每半年進行一次。",options:["對","錯"],a:"對"},
-  {q:"窩溝封填是預防大臼齒咬合面蛀牙的好方法。",options:["對","錯"],a:"對"},
-  {q:"糖分攝取過多是造成齲齒的主要原因之一。",options:["對","錯"],a:"對"},
-  {q:"口乾症患者較容易產生蛀牙。",options:["對","錯"],a:"對"},
-  {q:"健康的牙齦應該是粉紅色且不易出血的。",options:["對","錯"],a:"對"},
-  {q:"牙結石可以透過刷牙自行移除。",options:["對","錯"],a:"錯"},
-  {q:"懷孕期間不需要特別注意口腔衛生。",options:["對","錯"],a:"錯"},
-  {q:"乳牙壞了沒關係，反正常長大後會換恆牙。",options:["對","錯"],a:"錯"},
-  {q:"進食後立即刷牙或漱口是好習慣。",options:["對","錯"],a:"對"},
-  {q:"氟化物可以增加牙釉質抗酸的能力。",options:["對","錯"],a:"對"},
-  {q:"牙刷應每三個月更換一次。",options:["對","錯"],a:"對"},
-  {q:"洗牙會讓牙縫變大。",options:["對","錯"],a:"錯"},
-  {q:"牙膏擠越多刷得越乾淨。",options:["對","錯"],a:"錯"},
-  {q:"口腔潰瘍若超過兩週未癒合應儘速就醫。",options:["對","錯"],a:"對"},
-  {q:"嚼檳榔即使不吞汁也會致癌。",options:["對","錯"],a:"對"},
-  {q:"第一大臼齒又被稱為六歲牙。",options:["對","錯"],a:"對"},
-  {q:"刷牙出血是牙齦發炎的警訊。",options:["對","錯"],a:"對"},
-  {q:"睡前刷牙是最重要的一次刷牙。",options:["對","錯"],a:"對"},
-  {q:"牙粉比牙膏更能保護牙齒。",options:["對","錯"],a:"錯"},
-  {q:"牙線應拉鋸式進入牙縫，以免割傷牙齦。",options:["對","錯"],a:"對"},
-  {q:"口臭通常是因為口腔衛生不佳或舌苔過厚。",options:["對","錯"],a:"對"},
-  {q:"長期吸菸會導致牙齒染色。",options:["對","錯"],a:"對"},
-  {q:"乳牙早失會影響恆牙的萌發位置。",options:["對","錯"],a:"對"},
-  {q:"下列何者不是造成口腔癌的危險因子？",options:["抽菸","嚼檳榔","多喝水","喝酒"],a:"多喝水"},
-  {q:"預防口腔癌最重要的方法是：",options:["避免菸酒檳榔","多吃甜食","常熬夜","多喝含糖飲料"],a:"避免菸酒檳榔"},
-  {q:"若口腔潰瘍超過兩週未癒應：",options:["忍耐","服止痛藥","就醫檢查","用鹽水漱口"],a:"就醫檢查"},
-  {q:"抽菸造成口腔健康的影響為：",options:["牙齦退縮","牙周病","牙齒變黃","以上皆是"],a:"以上皆是"},
-  {q:"氟化物可以預防齲齒的主要原因是：",options:["增加牙釉質抗酸力","抑制細菌生長","幫助礦物質再鈣化","以上皆是"],a:"以上皆是"},
-  {q:"預防牙周病最有效的方法是：",options:["使用漱口水","徹底潔牙(刷牙及牙線)","吃維他命","多喝牛奶"],a:"徹底潔牙(刷牙及牙線)"},
-  {q:"貝氏刷牙法建議刷毛與牙長軸呈幾度角？",options:["0度","45度","90度","180度"],a:"45度"},
-  {q:"含氟牙膏中氟離子濃度應達到多少 ppm 才具防齲效果？",options:["500","800","1000","1500"],a:"1000"},
-  {q:"牙線的主要功能是：",options:["清潔牙縫面","剔牙縫殘渣","美白牙齒","防止牙齒鬆動"],a:"清潔牙縫面"},
-  {q:"建議多久應進行一次定期口腔檢查？",options:["一個月","半年","兩年","牙痛再去"],a:"半年"},
-  {q:"第一顆長出的乳牙通常是？",options:["上門牙","下門牙","上大臼齒","下犬齒"],a:"下門牙"},
-  {q:"全口塗氟建議多久進行一次？",options:["三個月","半年","一年","不必塗"],a:"半年"},
-  {q:"窩溝封填主要針對哪類牙齒進行？",options:["門牙","犬齒","小臼齒","恆牙大臼齒"],a:"恆牙大臼齒"},
-  {q:"下列何種食物最容易造成蛀牙？",options:["蘋果","牛奶","軟糖","青菜"],a:"軟糖"},
-  {q:"正確刷牙的時機不包括？",options:["吃完早餐後","午餐過後","洗澡前","睡覺前"],a:"洗澡前"},
-  {q:"關於牙刷的選擇，下列何者正確？",options:["刷頭越長越好","刷毛越硬越好","刷頭大小適中、軟毛","用越久越好"],a:"刷頭大小適中、軟毛"},
-  {q:"預防齲齒的「二要」是指：",options:["要睡飽要吃飽","要塗氟要封填","要美白要矯正","要漱口要剔牙"],a:"要塗氟要封填"},
-  {q:"下列何者不屬於牙周組織？",options:["牙齦","牙周韌帶","牙釉質","牙槽骨"],a:"牙釉質"},
-  {q:"刷牙時牙齦流血最可能的原因是：",options:["刷太用力","牙刷太舊","牙齦發炎","缺維他命C"],a:"牙齦發炎"},
-  {q:"牙線進入牙縫時應呈什麼形狀包圍牙齒？",options:["直線","L形","C形","S形"],a:"C形"},
-  {q:"混合牙期大約發生在幾歲到幾歲？",options:["0-6歲","6-12歲","12-18歲","20歲以後"],a:"6-12歲"},
-  {q:"甜食吃完後，口腔酸鹼值會如何變化？",options:["變酸(pH下降)","變鹼(pH上升)","不變","忽酸忽鹼"],a:"變酸(pH下降)"},
-  {q:"下列何者不是政府補助的口腔保健方案？",options:["國小窩溝封填","半年定期塗氟","免費植牙","牙周病統合治療"],a:"免費植牙"},
-  {q:"刷牙的主要目的是移除：",options:["食物殘渣","牙菌斑","牙結石","口水"],a:"牙菌斑"},
-  {q:"使用含氟漱口水的正確方式？",options:["每天使用一瓶","漱口1分鐘後吐掉30分鐘不進食","漱口後馬上喝水","邊走邊漱"],a:"漱口1分鐘後吐掉30分鐘不進食"},
-  {q:"成人全口共有幾顆恆牙(含智齒)？",options:["20顆","28顆","32顆","36顆"],a:"32顆"},
-  {q:"健康的牙齦應該是：",options:["鮮紅色","暗紅色","粉紅色","白色"],a:"粉紅色"},
-  {q:"六歲牙是指哪一顆牙？",options:["乳門牙","恆中門牙","第一大臼齒","第二小臼齒"],a:"第一大臼齒"}
-          
+            {q:"乳齒齒列共有 20 顆，在出生後 6 個月時乳牙開始發育。",options:["對","錯"],a:"對"},
+            {q:"乳齒到兩歲半左右 20 顆乳牙萌發完畢。",options:["對","錯"],a:"對"},
+            {q:"恆牙第一大臼齒在 6 歲左右萌出。",options:["對","錯"],a:"對"},
+            {q:"恆牙共有 28 顆，不包括智齒。",options:["對","錯"],a:"對"},
+            {q:"口腔內第一顆長出的恆牙通常為中門牙。",options:["對","錯"],a:"錯"},
+            {q:"人類乳牙期為 0～6 歲，混合牙期為 6～12 歲。",options:["對","錯"],a:"對"},
+            {q:"恆牙共有 32 顆（含智齒 4 顆）。",options:["對","錯"],a:"對"},
+            {q:"乳牙與恆牙的構造大同小異，由外而內分別為牙釉質、牙本質、牙髓。",options:["對","錯"],a:"對"},
+            {q:"牙釉質（琺瑯質）是人體內最堅硬的組織。",options:["對","錯"],a:"對"},
+            {q:"牙髓組織內含神經、血管及淋巴管，負責牙齒的營養與感覺。",options:["對","錯"],a:"對"},
+            {q:"口腔癌只發生在老年人。",options:["對","錯"],a:"錯"},
+            {q:"嚼食檳榔是引起口腔癌的主因之一。",options:["對","錯"],a:"對"},
+            {q:"牙齒最重要的功能是咀嚼食物及幫助發音。",options:["對","錯"],a:"對"},
+            {q:"正確刷牙後可以完全預防蛀牙，不需要定期檢查。",options:["對","錯"],a:"錯"},
+            {q:"牙周病會導致牙齒鬆動甚至脫落。",options:["對","錯"],a:"對"},
+            {q:"抽菸會加重牙周病的病情。",options:["對","錯"],a:"對"},
+            {q:"含氟牙膏建議含氟濃度應大於 1000ppm。",options:["對","錯"],a:"對"},
+            {q:"牙刷刷頭應選擇較大者，才能刷得乾淨。",options:["對","錯"],a:"錯"},
+            {q:"貝氏刷牙法要求刷毛與牙齒長軸呈 45 度角。",options:["對","錯"],a:"對"},
+            {q:"使用牙線可以清潔牙刷刷不到的牙縫。",options:["對","錯"],a:"對"},
+            {q:"漱口水可以完全取代刷牙。",options:["對","錯"],a:"錯"},
+            {q:"全口塗氟建議每半年進行一次。",options:["對","錯"],a:"對"},
+            {q:"窩溝封填是預防大臼齒咬合面蛀牙的好方法。",options:["對","錯"],a:"對"},
+            {q:"糖分攝取過多是造成齲齒的主要原因之一。",options:["對","錯"],a:"對"},
+            {q:"口乾症患者較容易產生蛀牙。",options:["對","錯"],a:"對"},
+            {q:"健康的牙齦應該是粉紅色且不易出血的。",options:["對","錯"],a:"對"},
+            {q:"牙結石可以透過刷牙自行移除。",options:["對","錯"],a:"錯"},
+            {q:"懷孕期間不需要特別注意口腔衛生。",options:["對","錯"],a:"錯"},
+            {q:"乳牙壞了沒關係，反正常長大後會換恆牙。",options:["對","錯"],a:"錯"},
+            {q:"進食後立即刷牙或漱口是好習慣。",options:["對","錯"],a:"對"},
+            {q:"氟化物可以增加牙釉質抗酸的能力。",options:["對","錯"],a:"對"},
+            {q:"牙刷應每三個月更換一次。",options:["對","錯"],a:"對"},
+            {q:"洗牙會讓牙縫變大。",options:["對","錯"],a:"錯"},
+            {q:"牙膏擠越多刷得越乾淨。",options:["對","錯"],a:"錯"},
+            {q:"口腔潰瘍若超過兩週未癒合應儘速就醫。",options:["對","錯"],a:"對"},
+            {q:"嚼檳榔即使不吞汁也會致癌。",options:["對","錯"],a:"對"},
+            {q:"第一大臼齒又被稱為六歲牙。",options:["對","錯"],a:"對"},
+            {q:"刷牙出血是牙齦發炎的警訊。",options:["對","錯"],a:"對"},
+            {q:"睡前刷牙是最重要的一次刷牙。",options:["對","錯"],a:"對"},
+            {q:"牙粉比牙膏更能保護牙齒。",options:["對","錯"],a:"錯"},
+            {q:"牙線應拉鋸式進入牙縫，以免割傷牙齦。",options:["對","錯"],a:"對"},
+            {q:"口臭通常是因為口腔衛生不佳或舌苔過厚。",options:["對","錯"],a:"對"},
+            {q:"長期吸菸會導致牙齒染色。",options:["對","錯"],a:"對"},
+            {q:"乳牙早失會影響恆牙的萌發位置。",options:["對","錯"],a:"對"},
+            {q:"下列何者不是造成口腔癌的危險因子？",options:["抽菸","嚼檳榔","多喝水","喝酒"],a:"多喝水"},
+            {q:"預防口腔癌最重要的方法是：",options:["避免菸酒檳榔","多吃甜食","常熬夜","多喝含糖飲料"],a:"避免菸酒檳榔"},
+            {q:"若口腔潰瘍超過兩週未癒應：",options:["忍耐","服止痛藥","就醫檢查","用鹽水漱口"],a:"就醫檢查"},
+            {q:"抽菸造成口腔健康的影響為：",options:["牙齦退縮","牙周病","牙齒變黃","以上皆是"],a:"以上皆是"},
+            {q:"氟化物可以預防齲齒的主要原因是：",options:["增加牙釉質抗酸力","抑制細菌生長","幫助礦物質再鈣化","以上皆是"],a:"以上皆是"},
+            {q:"預防牙周病最有效的方法是：",options:["使用漱口水","徹底潔牙(刷牙及牙線)","吃維他命","多喝牛奶"],a:"徹底潔牙(刷牙及牙線)"},
+            {q:"貝氏刷牙法建議刷毛與牙長軸呈幾度角？",options:["0度","45度","90度","180度"],a:"45度"},
+            {q:"含氟牙膏中氟離子濃度應達到多少 ppm 才具防齲效果？",options:["500","800","1000","1500"],a:"1000"},
+            {q:"牙線的主要功能是：",options:["清潔牙縫面","剔牙縫殘渣","美白牙齒","防止牙齒鬆動"],a:"清潔牙縫面"},
+            {q:"建議多久應進行一次定期口腔檢查？",options:["一個月","半年","兩年","牙痛再去"],a:"半年"},
+            {q:"第一顆長出的乳牙通常是？",options:["上門牙","下門牙","上大臼齒","下犬齒"],a:"下門牙"},
+            {q:"全口塗氟建議多久進行一次？",options:["三個月","半年","一年","不必塗"],a:"半年"},
+            {q:"窩溝封填主要針對哪類牙齒進行？",options:["門牙","犬齒","小臼齒","恆牙大臼齒"],a:"恆牙大臼齒"},
+            {q:"下列何種食物最容易造成蛀牙？",options:["蘋果","牛奶","軟糖","青菜"],a:"軟糖"},
+            {q:"正確刷牙的時機不包括？",options:["吃完早餐後","午餐過後","洗澡前","睡覺前"],a:"洗澡前"},
+            {q:"關於牙刷的選擇，下列何者正確？",options:["刷頭越長越好","刷毛越硬越好","刷頭大小適中、軟毛","用越久越好"],a:"刷頭大小適中、軟毛"},
+            {q:"預防齲齒的「二要」是指：",options:["要睡飽要吃飽","要塗氟要封填","要美白要矯正","要漱口要剔牙"],a:"要塗氟要封填"},
+            {q:"下列何者不屬於牙周組織？",options:["牙齦","牙周韌帶","牙釉質","牙槽骨"],a:"牙釉質"},
+            {q:"刷牙時牙齦流血最可能的原因是：",options:["刷太用力","牙刷太舊","牙齦發炎","缺維他命C"],a:"牙齦發炎"},
+            {q:"牙線進入牙縫時應呈什麼形狀包圍牙齒？",options:["直線","L形","C形","S形"],a:"C形"},
+            {q:"混合牙期大約發生在幾歲到幾歲？",options:["0-6歲","6-12歲","12-18歲","20歲以後"],a:"6-12歲"},
+            {q:"甜食吃完後，口腔酸鹼值會如何變化？",options:["變酸(pH下降)","變鹼(pH上升)","不變","忽酸忽鹼"],a:"變酸(pH下降)"},
+            {q:"下列何者不是政府補助的口腔保健方案？",options:["國小窩溝封填","半年定期塗氟","免費植牙","牙周病統合治療"],a:"免費植牙"},
+            {q:"刷牙的主要目的是移除：",options:["食物殘渣","牙菌斑","牙結石","口水"],a:"牙菌斑"},
+            {q:"使用含氟漱口水的正確方式？",options:["每天使用一瓶","漱口1分鐘後吐掉30分鐘不進食","漱口後馬上喝水","邊走邊漱"],a:"漱口1分鐘後吐掉30分鐘不進食"},
+            {q:"成人全口共有幾顆恆牙(含智齒)？",options:["20顆","28顆","32顆","36顆"],a:"32顆"},
+            {q:"健康的牙齦應該是：",options:["鮮紅色","暗紅色","粉紅色","白色"],a:"粉紅色"},
+            {q:"六歲牙是指哪一顆牙？",options:["乳門牙","恆中門牙","第一大臼齒","第二小臼齒"],a:"第一大臼齒"}
         ];
 
         let state = { userName: "", quiz: [], current: 0, score: 0 };
 
         async function refreshBoard() {
             try {
+                // 排行榜設定：只列出前 10 名
                 const q = query(collection(db, "leaderboard"), orderBy("totalScore", "desc"), limit(10));
                 const snap = await getDocs(q);
                 document.getElementById('boardList').innerHTML = snap.docs.map((d, i) => `
@@ -114,16 +113,26 @@
 
         window.startGame = () => {
             const name = document.getElementById('nameInput').value.trim();
-            if (!name) return alert("請輸入名字！");
+            if (!name) return alert("請輸入姓名！");
             state.userName = name;
-            state.quiz = [...ALL_QUESTIONS].sort(() => 0.5 - Math.random()).slice(0, 10);
+            // 每次測驗抽出 20 題
+            state.quiz = [...ALL_QUESTIONS].sort(() => 0.5 - Math.random()).slice(0, 20);
             state.current = 0; state.score = 0;
             showView('quiz-page'); renderQuiz();
         };
 
         window.handleAnswer = async (ans) => {
-            if (ans === state.quiz[state.current].a) state.score += 10;
-            if (state.current < 9) {
+            const correctAnswer = state.quiz[state.current].a;
+            
+            // 跳出視窗告知是否答對
+            if (ans === correctAnswer) {
+                state.score += 5; // 20題，每題5分，滿分100
+                alert("✅ 太棒了！答對了！");
+            } else {
+                alert("❌ 答錯囉！正確答案是： " + correctAnswer);
+            }
+
+            if (state.current < 19) {
                 state.current++; renderQuiz();
             } else {
                 const userRef = doc(db, "leaderboard", state.userName);
@@ -136,7 +145,7 @@
         function renderQuiz() {
             const q = state.quiz[state.current];
             document.getElementById('qText').innerText = q.q;
-            document.getElementById('qNum').innerText = `第 ${state.current + 1} / 10 題`;
+            document.getElementById('qNum').innerText = `第 ${state.current + 1} / 20 題`;
             document.getElementById('qOptions').innerHTML = q.options.map(opt => `
                 <button onclick="handleAnswer('${opt}')" class="w-full text-left p-5 border-2 border-slate-100 rounded-2xl mb-4 hover:border-indigo-500 hover:bg-indigo-50 transition active:scale-95 font-medium">${opt}</button>
             `).join('');
@@ -157,19 +166,19 @@
             <div class="text-center">
                 <div class="bg-indigo-100 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 text-4xl">🦷</div>
                 <h1 class="text-3xl font-black text-slate-800 mb-2">潔牙知識王</h1>
-                <p class="text-slate-400 mb-10">輸入姓名，挑戰總積分排行榜</p>
-                <input type="text" id="nameInput" placeholder="輸入姓名 (例: 50101)" class="w-full p-5 bg-slate-50 rounded-2xl mb-6 text-center text-xl focus:ring-4 focus:ring-indigo-100 outline-none transition border-none">
+                <p class="text-slate-400 mb-10 text-sm font-bold">每次 20 題 • 答題即時回饋</p>
+                <input type="text" id="nameInput" placeholder="輸入姓名 (例: 王小明)" class="w-full p-5 bg-slate-50 rounded-2xl mb-6 text-center text-xl focus:ring-4 focus:ring-indigo-100 outline-none transition border-none">
                 <button onclick="startGame()" class="w-full bg-indigo-600 text-white py-5 rounded-2xl font-bold text-xl shadow-xl shadow-indigo-200 hover:bg-indigo-700 active:scale-95 transition">開始挑戰</button>
             </div>
             
             <div class="mt-12">
-                <h3 class="font-black text-slate-400 text-xs uppercase tracking-widest mb-4">🏆 全校總積分排行榜</h3>
+                <h3 class="font-black text-slate-400 text-xs uppercase tracking-widest mb-4">🏆 全校總積分排行榜 Top 10</h3>
                 <div id="boardList" class="bg-slate-50 rounded-3xl p-2 border border-slate-100"></div>
             </div>
         </div>
 
         <div id="quiz-page" class="view hidden my-auto">
-            <div id="qNum" class="text-xs font-black text-indigo-400 mb-4 tracking-widest uppercase"></div>
+            <div id="qNum" class="text-xs font-black text-indigo-400 mb-4 tracking-widest uppercase text-center"></div>
             <h2 id="qText" class="text-2xl font-bold mb-10 leading-snug text-slate-800 min-h-[150px]"></h2>
             <div id="qOptions"></div>
         </div>
