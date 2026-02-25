@@ -188,8 +188,8 @@
 
         async function refreshBoard() {
             try {
-                // 排行榜設定：只列出前 10 名
-                const q = query(collection(db, "leaderboard"), orderBy("totalScore", "desc"), limit(10));
+                // 排行榜設定：只列出前 50 名
+                const q = query(collection(db, "leaderboard"), orderBy("totalScore", "desc"), limit(50));
                 const snap = await getDocs(q);
                 document.getElementById('boardList').innerHTML = snap.docs.map((d, i) => `
                     <div class="flex justify-between p-3 border-b border-slate-100 items-center">
@@ -260,7 +260,7 @@
             </div>
             
             <div class="mt-12">
-                <h3 class="font-black text-slate-400 text-xs uppercase tracking-widest mb-4">🏆 全校總積分排行榜 Top 10</h3>
+                <h3 class="font-black text-slate-400 text-xs uppercase tracking-widest mb-4">🏆 全校總積分排行榜 Top 50</h3>
                 <div id="boardList" class="bg-slate-50 rounded-3xl p-2 border border-slate-100"></div>
             </div>
         </div>
