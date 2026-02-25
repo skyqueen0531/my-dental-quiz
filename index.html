@@ -73,7 +73,7 @@
             {q:"混合牙期指的是：",options:["乳牙期", "恆牙期", "乳牙與恆牙並存期", "無牙期"],a:"乳牙與恆牙並存期"},
             {q:"恆牙第一大臼齒通常在幾歲萌出？",options:["4歲", "5歲", "6歲", "7歲"],a:"6歲"},
             {q:"恆牙（含智齒）總數為？",options:["24", "28", "30", "32"],a:"32"},
-            {q:"第一大臼齒俗稱：",options:["智齒", "六歲齒", "犬齒", "門牙"],a:"六歲齒"},
+            {q:"第一大臼齒俗稱：",options:["智介", "六歲齒", "犬齒", "門牙"],a:"六歲齒"},
             {q:"牙齒最外層為：",options:["牙釉質", "牙本質", "牙骨質", "牙髓"],a:"牙釉質"},
             {q:"牙釉質的主要功能：",options:["傳導神經", "保護牙齒內層組織", "分泌唾液", "支撐牙根"],a:"保護牙齒內層組織"},
             {q:"齒槽骨的功能：",options:["保護牙釉質", "支撐牙根", "幫助發音", "形成琺瑯質"],a:"支撐牙根"},
@@ -188,7 +188,7 @@
 
         async function refreshBoard() {
             try {
-                // 排行榜設定：只列出前 50 名
+                // 排行榜設定：列出前 50 名
                 const q = query(collection(db, "leaderboard"), orderBy("totalScore", "desc"), limit(50));
                 const snap = await getDocs(q);
                 document.getElementById('boardList').innerHTML = snap.docs.map((d, i) => `
@@ -255,13 +255,13 @@
                 <div class="bg-indigo-100 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 text-4xl">🦷</div>
                 <h1 class="text-3xl font-black text-slate-800 mb-2">潔牙知識王</h1>
                 <p class="text-slate-400 mb-10 text-sm font-bold">每次 20 題 • 答題即時回饋</p>
-                <input type="text" id="nameInput" placeholder="輸入姓名 (例: 王小明)" class="w-full p-5 bg-slate-50 rounded-2xl mb-6 text-center text-xl focus:ring-4 focus:ring-indigo-100 outline-none transition border-none">
+                <input type="text" id="nameInput" placeholder="請輸入：座號+姓名 (例: 05王小明)" class="w-full p-5 bg-slate-50 rounded-2xl mb-6 text-center text-xl focus:ring-4 focus:ring-indigo-100 outline-none transition border-none">
                 <button onclick="startGame()" class="w-full bg-indigo-600 text-white py-5 rounded-2xl font-bold text-xl shadow-xl shadow-indigo-200 hover:bg-indigo-700 active:scale-95 transition">開始挑戰</button>
             </div>
             
             <div class="mt-12">
                 <h3 class="font-black text-slate-400 text-xs uppercase tracking-widest mb-4">🏆 全校總積分排行榜 Top 50</h3>
-                <div id="boardList" class="bg-slate-50 rounded-3xl p-2 border border-slate-100"></div>
+                <div id="boardList" class="bg-slate-50 rounded-3xl p-2 border border-slate-100 max-h-64 overflow-y-auto"></div>
             </div>
         </div>
 
